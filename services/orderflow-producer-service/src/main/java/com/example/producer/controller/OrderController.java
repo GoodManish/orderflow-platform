@@ -1,22 +1,27 @@
 package com.example.producer.controller;
 
+import com.example.producer.api.CreateOrderRequest;
 import com.example.producer.service.ProducerService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/v1/orders")
 public class OrderController {
 
-    @Autowired
-    private ProducerService producerService;
+    private final ProducerService producerService;
+
+    public OrderController(ProducerService producerService) {
+        this.producerService = producerService;
+    }
 
     @PostMapping
-    public String createOrder(@RequestParam String orderId) {
-        producerService.send();
-        return "Order sent: " + orderId;
+    public String createOrder(@RequestBody CreateOrderRequest request) {
+        UUID id = producerService.createOrderAndPublish(request.orderId(), request.note());
+        return "Order saved and published: " + id;
     }
 }

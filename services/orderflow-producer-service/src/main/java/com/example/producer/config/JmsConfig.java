@@ -83,6 +83,7 @@ public class JmsConfig {
     JmsTemplate t = new JmsTemplate(cf);
     t.setDeliveryPersistent(true);
     t.setExplicitQosEnabled(true);
+    t.setSessionTransacted(true);
     return t;
   }
 

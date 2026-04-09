@@ -70,7 +70,7 @@ import org.springframework.stereotype.Component;
 //}
 
 
-@Component
+//@Component
 public class OrderConsumer {
 
     private static final Logger log = LoggerFactory.getLogger(OrderConsumer.class);
