@@ -85,12 +85,19 @@ public class JmsConfig {
     f.setConnectionFactory(cf);
     f.setSessionTransacted(true);
     f.setRecoveryInterval(1000L);
-    f.setConcurrency("1-1");
+    f.setConcurrency("2-5");
     // The broker role we're using cannot auto-create durable queues, and this consumer only needs
     // standard queue semantics. Keep the client ID stable but avoid durable subscriptions so the
     // container doesn't try to CREATE_DURABLE_QUEUE on startup.
 //    f.setClientId(clientId);
     f.setSubscriptionDurable(false);
     return f;
+  }
+
+  @Bean
+  public org.springframework.jms.core.JmsTemplate jmsTemplate(ActiveMQConnectionFactory cf) {
+    org.springframework.jms.core.JmsTemplate t = new org.springframework.jms.core.JmsTemplate(cf);
+    t.setSessionTransacted(true);
+    return t;
   }
 }

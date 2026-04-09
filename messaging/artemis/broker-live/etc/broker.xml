@@ -74,12 +74,39 @@
       </security-setting>
     </security-settings>
 
+    <!-- ADD HERE -->
+    <address-settings>
+      <address-setting match="order.#">
+        <max-delivery-attempts>3</max-delivery-attempts>
+        <redelivery-delay>2000</redelivery-delay>
+        <dead-letter-address>DLQ</dead-letter-address>
+      </address-setting>
+
+      <address-setting match="demo.queue">
+        <max-delivery-attempts>3</max-delivery-attempts>
+        <dead-letter-address>DLQ</dead-letter-address>
+      </address-setting>
+    </address-settings>
+
     <addresses>
       <address name="demo.queue">
         <anycast>
           <queue name="demo.queue">
             <durable>true</durable>
           </queue>
+        </anycast>
+      </address>
+      <!-- New queue -->
+      <address name="order.created">
+        <anycast>
+          <queue name="order.created"/>
+        </anycast>
+      </address>
+
+      <!-- DLQ -->
+      <address name="DLQ">
+        <anycast>
+          <queue name="dead.letter.queue"/>
         </anycast>
       </address>
     </addresses>
