@@ -16,9 +16,9 @@ rem KIND, either express or implied.  See the License for the
 rem specific language governing permissions and limitations
 rem under the License.
 
-set ARTEMIS_HOME="C:\Users\vanma\IdeaProjects\artemis-ha-demo\apache-artemis-2.53.0"
-set ARTEMIS_INSTANCE="C:\Users\vanma\IdeaProjects\artemis-ha-demo\instances\broker-backup"
-set ARTEMIS_DATA_DIR="C:\Users\vanma\IdeaProjects\artemis-ha-demo\instances\broker-backup\data"
+set ARTEMIS_HOME="C:\Users\vanma\IdeaProjects\orderflow-platform\messaging\artemis\apache-artemis-2.53.0"
+set ARTEMIS_INSTANCE="C:\Users\vanma\IdeaProjects\orderflow-platform\messaging\artemis\broker-backup"
+set ARTEMIS_DATA_DIR="%ARTEMIS_INSTANCE%\data"
 
 IF "%LOGGING_ARGS%"=="" (set LOGGING_ARGS=-Dlog4j2.configurationFile=log4j2-utility.properties)
 

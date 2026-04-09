@@ -22,12 +22,12 @@
    <name>Apache Artemis: broker-live @ 0.0.0.0</name>
    <description>Apache Artemis is a reliable messaging broker</description>
 
-   <env name="ARTEMIS_HOME" value="C:\Users\vanma\IdeaProjects\artemis-ha-demo\apache-artemis-2.53.0"/>
-   <env name="ARTEMIS_INSTANCE" value="C:\Users\vanma\IdeaProjects\artemis-ha-demo\instances\broker-live"/>
-   <env name="ARTEMIS_INSTANCE_ETC" value="C:\Users\vanma\IdeaProjects\artemis-ha-demo\instances\broker-live\etc"/>
-   <env name="ARTEMIS_DATA_DIR" value="C:\Users\vanma\IdeaProjects\artemis-ha-demo\instances\broker-live\data"/>
+   <env name="ARTEMIS_HOME" value="C:\Users\vanma\IdeaProjects\orderflow-platform\messaging\artemis\apache-artemis-2.53.0"/>
+   <env name="ARTEMIS_INSTANCE" value="C:\Users\vanma\IdeaProjects\orderflow-platform\messaging\artemis\broker-live"/>
+   <env name="ARTEMIS_INSTANCE_ETC" value="C:\Users\vanma\IdeaProjects\orderflow-platform\messaging\artemis\broker-live\etc"/>
+   <env name="ARTEMIS_DATA_DIR" value="C:\Users\vanma\IdeaProjects\orderflow-platform\messaging\artemis\broker-live\data"/>
 
-   <logpath>C:\Users\vanma\IdeaProjects\artemis-ha-demo\instances\broker-live\log</logpath>
+   <logpath>C:\Users\vanma\IdeaProjects\orderflow-platform\messaging\artemis\broker-live\log</logpath>
    <logmode>roll</logmode>
 
    <executable>%JAVA_HOME%\bin\java.exe</executable>

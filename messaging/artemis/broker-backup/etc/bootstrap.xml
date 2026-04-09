@@ -23,7 +23,7 @@
 
    &lt;!&ndash; artemis.URI.instance is parsed from artemis.instance by the CLI startup.
         This is to avoid situations where you could have spaces or special characters on this URI &ndash;&gt;
-   <server configuration="file:/C:/Users/vanma/IdeaProjects/artemis-ha-demo/instances/broker-backup/etc//broker.xml"/>
+   <server configuration="file:/C:/Users/vanma/IdeaProjects/orderflow-platform/messaging/artemis/broker-backup/etc/broker.xml"/>
 
    <web bind="http://localhost:8162" path="web" rootRedirectLocation="console"/>
 
