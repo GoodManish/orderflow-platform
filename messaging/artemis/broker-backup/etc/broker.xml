@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+  BACKUP (REPLICA) BROKER
+  ────────────────────────
+  Copy this file to:
+    apache-artemis-2.53.0\instances\broker-backup\etc\broker.xml
+
+  Port : 61617
+  Role : REPLICA — standby; promotes to live on failover
+-->
+<configuration xmlns="urn:activemq"
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xsi:schemaLocation="urn:activemq /schema/artemis-configuration.xsd">
+
+  <core xmlns="urn:activemq:core">
+
+    <name>broker-backup</name>
+
+    <persistence-enabled>true</persistence-enabled>
+    <journal-directory>data/journal</journal-directory>
+    <bindings-directory>data/bindings</bindings-directory>
+    <large-messages-directory>data/large-messages</large-messages-directory>
+
+    <connectors>
+      <connector name="backup-connector">tcp://localhost:61617</connector>
+      <connector name="live-connector">tcp://localhost:61616</connector>
+    </connectors>
+
+    <acceptors>
+      <acceptor name="netty-acceptor">tcp://localhost:61617</acceptor>
+    </acceptors>
+
+    <!-- HA: this broker is the REPLICA (backup) -->
+    <ha-policy>
+      <replication>
+        <backup>
+          <allow-failback>true</allow-failback>
+        </backup>
+      </replication>
+    </ha-policy>
+
+    <cluster-connections>
+      <cluster-connection name="my-cluster">
+        <connector-ref>backup-connector</connector-ref>
+        <retry-interval>500</retry-interval>
+        <use-duplicate-detection>true</use-duplicate-detection>
+        <message-load-balancing>STRICT</message-load-balancing>
+        <max-hops>1</max-hops>
+        <static-connectors>
+          <connector-ref>live-connector</connector-ref>
+        </static-connectors>
+      </cluster-connection>
+    </cluster-connections>
+
+    <security-settings>
+      <!-- Default permissions for all addresses -->
+      <security-setting match="#">
+        <permission type="createNonDurableQueue" roles="amq"/>
+        <permission type="deleteNonDurableQueue" roles="amq"/>
+        <permission type="createDurableQueue"    roles="amq"/>
+        <permission type="deleteDurableQueue"    roles="amq"/>
+        <permission type="createAddress"         roles="amq"/>
+        <permission type="deleteAddress"         roles="amq"/>
+        <permission type="consume"               roles="amq"/>
+        <permission type="browse"                roles="amq"/>
+        <permission type="send"                  roles="amq"/>
+        <permission type="manage"                roles="amq"/>
+      </security-setting>
+      <!-- Explicit permissions for demo.queue -->
+      <security-setting match="demo.queue">
+        <permission type="send"                  roles="amq"/>
+        <permission type="consume"               roles="amq"/>
+        <permission type="browse"                roles="amq"/>
+      </security-setting>
+    </security-settings>
+
+    <addresses>
+      <address name="demo.queue">
+        <anycast>
+          <queue name="demo.queue">
+            <durable>true</durable>
+          </queue>
+        </anycast>
+      </address>
+    </addresses>
+
+  </core>
+
+  <web bind="http://localhost:8162" path="web">
+    <app url="activemq-branding" war="activemq-branding.war"/>
+    <app url="artemis-plugin" war="artemis-plugin.war"/>
+    <app url="console" war="console.war"/>
+  </web>
+
+</configuration>
